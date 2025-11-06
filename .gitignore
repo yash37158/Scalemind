@@ -1,0 +1,45 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+scalemind
+
+# Test binary
+*.test
+
+# Output
+*.out
+coverage.out
+
+# Go workspace file
+go.work
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Kubernetes configs (sensitive)
+kubeconfig
+*.kubeconfig
+
+# AWS credentials (should never be committed)
+.aws/
+credentials
+
