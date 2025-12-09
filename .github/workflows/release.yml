@@ -6,6 +6,10 @@ on:
       - 'v*.*.*'
   workflow_dispatch:
 
+# Add permissions for GITHUB_TOKEN
+permissions:
+  contents: write  # Required to create releases
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -65,11 +69,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./release-binaries
+          merge-multiple: true  # 🔧 FIX: Merge all artifacts into one directory
+      
+      - name: List downloaded files
+        run: |
+          ls -la ./release-binaries/
+          find ./release-binaries -type f
       
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./release-binaries/*
+          files: ./release-binaries/*  # Now this will match files correctly
           draft: false
           prerelease: false
           generate_release_notes: true
