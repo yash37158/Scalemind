@@ -29,8 +29,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          # Use your project’s supported version or 'stable'
-          go-version: 'stable'   # or '1.22' / '1.23'
+          go-version: '1.24'   # 🔧 Changed from 'stable' to '1.24'
           cache: true
 
       - name: Go test
@@ -47,15 +46,16 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version: '1.24'   # 🔧 Changed from 'stable' to '1.24'
           cache: true
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
         with:
-          version: v1.61.0          # keep this within 2 latest releases
+          version: v1.61.0
           args: >
-            --timeout=5m            # increase timeout for CI
+            --timeout=10m            # 🔧 Increased from 5m to 10m
+            --skip-dirs-use-default
             ./...
           # if you have a config file, include:
           # config: .golangci.yml
@@ -71,7 +71,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version: '1.24'   # 🔧 Changed from 'stable' to '1.24'
           cache: true
 
       - name: Run gosec
@@ -111,7 +111,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version: '1.24'   # 🔧 Changed from 'stable' to '1.24'
           cache: true
 
       - name: Build binary
@@ -120,8 +120,7 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 0
         run: |
-          go build -ldflags="-w -s" -o "${{ matrix.binary_name }}" ./cmd/... || \
-          go build -ldflags="-w -s" -o "${{ matrix.binary_name }}" ./...
+          go build -ldflags="-w -s" -o "${{ matrix.binary_name }}" main.go  # 🔧 Fixed: removed ./cmd/... fallback
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
